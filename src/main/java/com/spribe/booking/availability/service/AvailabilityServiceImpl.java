@@ -2,6 +2,7 @@ package com.spribe.booking.availability.service;
 
 import com.spribe.booking.availability.domain.Availability;
 import com.spribe.booking.availability.domain.AvailabilityRepository;
+import com.spribe.booking.cache.CountAvailableUnitCacheService;
 import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.unit.domain.Unit;
 import com.spribe.booking.util.exception.AvailabilityException;
@@ -21,11 +22,14 @@ import java.util.List;
 public class AvailabilityServiceImpl implements AvailabilityService{
     private final AvailabilityRepository repository;
     private final ApplicationEventPublisher eventPublisher;
+    private final CountAvailableUnitCacheService cacheService;
 
     @Autowired
-    public AvailabilityServiceImpl(AvailabilityRepository repository, ApplicationEventPublisher eventPublisher) {
+    public AvailabilityServiceImpl(AvailabilityRepository repository, ApplicationEventPublisher eventPublisher,
+            CountAvailableUnitCacheService cacheService) {
         this.repository = repository;
         this.eventPublisher = eventPublisher;
+        this.cacheService = cacheService;
     }
 
     @Override
@@ -118,6 +122,9 @@ public class AvailabilityServiceImpl implements AvailabilityService{
         repository.deleteAllByUnitId(unit.getId());
         repository.saveAll(merged);
 
-        unit.setAvailable(true);
+        if(!unit.getAvailable()) {
+            unit.setAvailable(true);
+            cacheService.increment();
+        }
     }
 }

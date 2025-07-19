@@ -20,6 +20,8 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
+    //    Database layer
     implementation("org.liquibase:liquibase-core")
     runtimeOnly("org.postgresql:postgresql")
     //    MapStruct & Lombok
@@ -27,8 +29,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.38")
     implementation("org.mapstruct:mapstruct:1.6.3")
     annotationProcessor("org.mapstruct:mapstruct-processor:1.6.3")
-
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.8")
+    //    Redis & Cache
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:3.5.3")
 
     //    Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")

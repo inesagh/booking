@@ -1,8 +1,10 @@
 package com.spribe.booking.payment.service.scheduler;
 
+import com.spribe.booking.availability.domain.AvailabilityRepository;
 import com.spribe.booking.availability.service.AvailabilityService;
 import com.spribe.booking.booking.domain.Booking;
 import com.spribe.booking.booking.domain.BookingRepository;
+import com.spribe.booking.cache.CountAvailableUnitCacheService;
 import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.payment.domain.Payment;
 import com.spribe.booking.payment.domain.PaymentRepository;
@@ -21,22 +23,27 @@ import java.util.List;
 public class PaymentScheduler {
     private final BookingRepository bookingRepository;
     private final PaymentRepository paymentRepository;
+    private final AvailabilityRepository availabilityRepository;
     private final AvailabilityService availabilityService;
     private final ApplicationEventPublisher eventPublisher;
+    private final CountAvailableUnitCacheService cacheService;
 
     @Autowired
     public PaymentScheduler(BookingRepository bookingRepository, PaymentRepository paymentRepository,
-            AvailabilityService availabilityService, ApplicationEventPublisher eventPublisher) {
+            AvailabilityRepository availabilityRepository, AvailabilityService availabilityService, ApplicationEventPublisher eventPublisher,
+            CountAvailableUnitCacheService cacheService) {
         this.bookingRepository = bookingRepository;
         this.paymentRepository = paymentRepository;
+        this.availabilityRepository = availabilityRepository;
         this.availabilityService = availabilityService;
         this.eventPublisher = eventPublisher;
+        this.cacheService = cacheService;
     }
 
     @Scheduled(fixedRate = 60000)
     @Transactional
     public void checkPendingPayments() {
-        LocalDateTime expiredTime = LocalDateTime.now().minusMinutes(1); //TODO
+        LocalDateTime expiredTime = LocalDateTime.now().minusMinutes(15);
 
         List<Payment> expiredPayments = paymentRepository
                 .findAllByStatusAndCreatedAtBefore(PaymentStatusType.PENDING, expiredTime);
@@ -49,6 +56,11 @@ public class PaymentScheduler {
                 payment.setStatus(PaymentStatusType.SUCCESS);
                 booking.setStatus(BookingStatusType.CONFIRMED);
                 availabilityService.removeAvailability(booking.getUnit().getId(), booking.getStartDate(), booking.getEndDate());
+
+                if(availabilityRepository.findAllByUnitId(booking.getUnit().getId()).isEmpty()) {
+                   booking.getUnit().setAvailable(false);
+                   cacheService.decrement();
+                }
 
                 eventPublisher.publishEvent(new AppEvent(
                         "UNIT_BOOKING_AND_PAYMENT_CONFIRMATION",
@@ -73,7 +85,6 @@ public class PaymentScheduler {
             paymentRepository.save(payment);
             bookingRepository.save(booking);
         }
-
     }
 
     private boolean mockPaymentSuccessful(Payment payment) {

@@ -8,4 +8,5 @@ import com.spribe.booking.unit.rest.models.UnitSearchCriteria;
 public interface UnitService {
     PageDto<UnitResponseDto> searchUnits(UnitSearchCriteria criteria);
     UnitResponseDto create(UnitRequestDto requestDto);
+    int getAvailableUnitCount();
 }

@@ -52,7 +52,7 @@ public interface AppMapper {
     Event toEntity(AppEvent event);
 
     @AfterMapping
-    default void enrichUnit(@MappingTarget Unit unit, UnitRequestDto requestDto) {
+    default void setFinalPriceAndAvailabilityDetails(@MappingTarget Unit unit, UnitRequestDto requestDto) {
         if(unit.getBasePrice() != null) {
             unit.setFinalPrice((double) Math.round(unit.getBasePrice() * 1.15));
         }

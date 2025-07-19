@@ -1,6 +1,7 @@
 package com.spribe.booking.unit.service;
 
 import com.spribe.booking.availability.domain.AvailabilityRepository;
+import com.spribe.booking.cache.CountAvailableUnitCacheService;
 import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.unit.domain.Unit;
 import com.spribe.booking.unit.domain.UnitRepository;
@@ -29,13 +30,15 @@ public class UnitServiceImpl implements UnitService{
     private final UnitRepository repository;
     private final AppMapper mapper;
     private final ApplicationEventPublisher eventPublisher;
+    private final CountAvailableUnitCacheService cacheService;
 
     @Autowired
     public UnitServiceImpl(UnitRepository repository, AvailabilityRepository availabilityRepository, AppMapper mapper,
-            ApplicationEventPublisher eventPublisher) {
+            ApplicationEventPublisher eventPublisher, CountAvailableUnitCacheService cacheService) {
         this.repository = repository;
         this.mapper = mapper;
         this.eventPublisher = eventPublisher;
+        this.cacheService = cacheService;
     }
 
     @Override
@@ -73,6 +76,7 @@ public class UnitServiceImpl implements UnitService{
         try{
             Unit newUnitToBeSaved = mapper.toEntity(requestDto);
             Unit saved = repository.save(newUnitToBeSaved);
+            cacheService.increment();
 
             eventPublisher.publishEvent(new AppEvent(
                     "UNIT_CREATED",
@@ -89,5 +93,10 @@ public class UnitServiceImpl implements UnitService{
             ));
             throw new AppException(String.format("Unit cannot be saved. Reason %s", exception.getMessage()), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @Override
+    public int getAvailableUnitCount() {
+        return repository.countAllByAvailableIsTrue();
     }
 }
