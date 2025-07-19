@@ -1,6 +1,6 @@
 package com.spribe.booking.unit.domain;
 
-import com.spribe.booking.unit.availability.domain.Availability;
+import com.spribe.booking.availability.domain.Availability;
 import com.spribe.booking.user.domain.User;
 import com.spribe.booking.util.type.UnitType;
 import jakarta.persistence.CascadeType;
@@ -47,6 +47,6 @@ public class Unit {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "units", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "unit", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Availability> availabilityDates;
 }

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="7" author="inesa">
+        <!-- ========== Add a user ========== -->
+        <insert tableName="users">
+            <column name="email" value="user1"/>
+            <column name="full_name" value="User 1"/>
+            <column name="created_at" valueDate="2024-01-01T10:00:00"/>
+        </insert>
+        <insert tableName="users">
+            <column name="email" value="user2"/>
+            <column name="full_name" value="User 2"/>
+            <column name="created_at" valueDate="2024-01-01T10:01:00"/>
+        </insert>
+        <insert tableName="users">
+            <column name="email" value="user3"/>
+            <column name="full_name" value="User 3"/>
+            <column name="created_at" valueDate="2024-01-01T10:02:00"/>
+        </insert>
+
+        <!-- ========== Add 10 units with their corresponding initial date ranges ========== -->
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="2"/>
+            <column name="type" value="HOME"/>
+            <column name="floor" valueNumeric="1"/>
+            <column name="base_price" valueNumeric="100.00"/>
+            <column name="final_price" valueNumeric="115.00"/>
+            <column name="description" value="Cozy studio unit with a beautiful view."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="1"/>
+            <column name="start_date" valueDate="2025-08-01"/>
+            <column name="end_date" valueDate="2025-08-15"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="3"/>
+            <column name="type" value="FLAT"/>
+            <column name="floor" valueNumeric="3"/>
+            <column name="base_price" valueNumeric="200.00"/>
+            <column name="final_price" valueNumeric="230.00"/>
+            <column name="description" value="Spacious apartment with balcony."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="2"/>
+            <column name="start_date" valueDate="2025-08-20"/>
+            <column name="end_date" valueDate="2025-08-29"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="1"/>
+            <column name="type" value="FLAT"/>
+            <column name="floor" valueNumeric="2"/>
+            <column name="base_price" valueNumeric="120.00"/>
+            <column name="final_price" valueNumeric="138.00"/>
+            <column name="description" value="Modern studio near city center."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="3"/>
+            <column name="start_date" valueDate="2025-09-01"/>
+            <column name="end_date" valueDate="2025-09-10"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="3"/>
+            <column name="start_date" valueDate="2025-09-15"/>
+            <column name="end_date" valueDate="2025-09-29"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="4"/>
+            <column name="type" value="HOME"/>
+            <column name="floor" valueNumeric="10"/>
+            <column name="base_price" valueNumeric="500.00"/>
+            <column name="final_price" valueNumeric="575.00"/>
+            <column name="description" value="Luxurious penthouse with rooftop access."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="4"/>
+            <column name="start_date" valueDate="2026-09-01"/>
+            <column name="end_date" valueDate="2026-09-05"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="2"/>
+            <column name="type" value="FLAT"/>
+            <column name="floor" valueNumeric="5"/>
+            <column name="base_price" valueNumeric="220.00"/>
+            <column name="final_price" valueNumeric="253.00"/>
+            <column name="description" value="Quiet apartment in residential area."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="5"/>
+            <column name="start_date" valueDate="2025-12-01"/>
+            <column name="end_date" valueDate="2025-12-05"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="5"/>
+            <column name="start_date" valueDate="2025-11-10"/>
+            <column name="end_date" valueDate="2025-11-12"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="3"/>
+            <column name="type" value="FLAT"/>
+            <column name="floor" valueNumeric="7"/>
+            <column name="base_price" valueNumeric="300.00"/>
+            <column name="final_price" valueNumeric="345.00"/>
+            <column name="description" value="Stylish loft with open floor plan."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="6"/>
+            <column name="start_date" valueDate="2025-10-10"/>
+            <column name="end_date" valueDate="2025-10-12"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="1"/>
+            <column name="type" value="APARTMENTS"/>
+            <column name="floor" valueNumeric="4"/>
+            <column name="base_price" valueNumeric="130.00"/>
+            <column name="final_price" valueNumeric="149.50"/>
+            <column name="description" value="Cozy studio perfect for singles."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="7"/>
+            <column name="start_date" valueDate="2025-10-12"/>
+            <column name="end_date" valueDate="2025-11-28"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="5"/>
+            <column name="type" value="HOME"/>
+            <column name="floor" valueNumeric="1"/>
+            <column name="base_price" valueNumeric="800.00"/>
+            <column name="final_price" valueNumeric="920.00"/>
+            <column name="description" value="Spacious villa with garden."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="8"/>
+            <column name="start_date" valueDate="2025-10-18"/>
+            <column name="end_date" valueDate="2025-11-14"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="8"/>
+            <column name="start_date" valueDate="2025-11-27"/>
+            <column name="end_date" valueDate="2025-12-29"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="2"/>
+            <column name="type" value="APARTMENTS"/>
+            <column name="floor" valueNumeric="6"/>
+            <column name="base_price" valueNumeric="210.00"/>
+            <column name="final_price" valueNumeric="241.50"/>
+            <column name="description" value="Bright apartment with great amenities."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="9"/>
+            <column name="start_date" valueDate="2026-02-11"/>
+            <column name="end_date" valueDate="2026-02-17"/>
+        </insert>
+
+        <insert tableName="units">
+            <column name="rooms_count" valueNumeric="3"/>
+            <column name="type" value="HOME"/>
+            <column name="floor" valueNumeric="8"/>
+            <column name="base_price" valueNumeric="250.00"/>
+            <column name="final_price" valueNumeric="287.50"/>
+            <column name="description" value="Modern apartment close to public transport."/>
+            <column name="available" valueBoolean="true"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="10"/>
+            <column name="start_date" valueDate="2026-03-10"/>
+            <column name="end_date" valueDate="2026-03-20"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="10"/>
+            <column name="start_date" valueDate="2026-04-10"/>
+            <column name="end_date" valueDate="2026-04-20"/>
+        </insert>
+        <insert tableName="availability">
+            <column name="unit_id" valueNumeric="10"/>
+            <column name="start_date" valueDate="2026-05-15"/>
+            <column name="end_date" valueDate="2026-05-25"/>
+        </insert>
+
+        <!-- ========== Add events for each inserted unit ========== -->
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 1 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:00:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 2 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:01:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 3 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:02:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 4 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:03:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 5 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:04:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 6 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:05:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 7 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:06:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 8 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:07:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 9 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:08:00"/>
+        </insert>
+        <insert tableName="events">
+            <column name="event_type" value="UNIT_CREATED"/>
+            <column name="description" value="Unit with ID 10 was created by User 1"/>
+            <column name="occurred_at" valueDate="2024-01-01T10:09:00"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

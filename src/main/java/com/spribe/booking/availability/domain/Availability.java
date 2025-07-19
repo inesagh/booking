@@ -1,4 +1,4 @@
-package com.spribe.booking.unit.availability.domain;
+package com.spribe.booking.availability.domain;
 
 import com.spribe.booking.unit.domain.Unit;
 import jakarta.persistence.Entity;

@@ -1,18 +1,18 @@
 package com.spribe.booking.util.exception;
 
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 
-public class AppException extends Exception{
+@Getter
+public class AppException extends RuntimeException{
     private static final Logger LOG = LoggerFactory.getLogger(AppException.class);
+    private final HttpStatus status;
 
-    public AppException(String message) {
+    public AppException(String message, HttpStatus status) {
         super(message);
+        this.status = status;
         LOG.error(message);
-    }
-
-    public AppException(String message, Throwable throwable) {
-        super(message, throwable);
-        LOG.error(message, throwable);
     }
 }

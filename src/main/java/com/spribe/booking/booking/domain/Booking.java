@@ -3,19 +3,11 @@ package com.spribe.booking.booking.domain;
 import com.spribe.booking.unit.domain.Unit;
 import com.spribe.booking.user.domain.User;
 import com.spribe.booking.util.type.BookingStatusType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bookings")
@@ -40,4 +32,6 @@ public class Booking {
     private LocalDate endDate;
     @Enumerated(EnumType.STRING)
     private BookingStatusType status;
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 }
