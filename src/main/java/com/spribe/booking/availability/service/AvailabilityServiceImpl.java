@@ -18,7 +18,6 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-@Transactional
 public class AvailabilityServiceImpl implements AvailabilityService{
     private final AvailabilityRepository repository;
     private final ApplicationEventPublisher eventPublisher;
@@ -126,5 +125,9 @@ public class AvailabilityServiceImpl implements AvailabilityService{
             unit.setAvailable(true);
             cacheService.increment();
         }
+    }
+
+    @Override public List<Availability> findAllByUnitId(Long unitId) {
+        return repository.findAllByUnitId(unitId);
     }
 }

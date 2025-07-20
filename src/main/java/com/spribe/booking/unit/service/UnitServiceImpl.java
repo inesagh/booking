@@ -25,7 +25,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-@Transactional
 public class UnitServiceImpl implements UnitService{
     private final UnitRepository repository;
     private final AppMapper mapper;

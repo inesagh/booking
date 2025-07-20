@@ -10,7 +10,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-@Transactional
 public interface AvailabilityRepository extends JpaRepository<Availability, Long> {
     List<Availability> findByUnitIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(Long unitId, LocalDate from, LocalDate to);
 

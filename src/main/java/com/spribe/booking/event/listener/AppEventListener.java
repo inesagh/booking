@@ -5,7 +5,9 @@ import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.util.mapper.AppMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.event.TransactionalEventListener;
 
 @Component
 public class AppEventListener {
@@ -18,7 +20,8 @@ public class AppEventListener {
         this.appMapper = appMapper;
     }
 
-    @EventListener
+    @TransactionalEventListener
+    @Async
     public void handle(AppEvent appEvent) {
         eventRepository.save(appMapper.toEntity(appEvent));
     }

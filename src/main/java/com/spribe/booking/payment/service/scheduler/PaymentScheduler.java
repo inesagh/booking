@@ -50,37 +50,21 @@ public class PaymentScheduler {
 
         for (Payment payment : expiredPayments) {
             Booking booking = payment.getBooking();
+            payment.setStatus(PaymentStatusType.FAILED);
+            booking.setStatus(BookingStatusType.CANCELLED);
+            availabilityService.addRangeAndMerge(
+                    booking.getUnit(),
+                    booking.getStartDate(),
+                    booking.getEndDate()
+            );
+            cacheService.increment();
 
-            if (mockPaymentSuccessful(payment) && booking.getStatus().equals(BookingStatusType.PENDING)) {
-                //change availability
-                payment.setStatus(PaymentStatusType.SUCCESS);
-                booking.setStatus(BookingStatusType.CONFIRMED);
-                availabilityService.removeAvailability(booking.getUnit().getId(), booking.getStartDate(), booking.getEndDate());
-
-                if(availabilityRepository.findAllByUnitId(booking.getUnit().getId()).isEmpty()) {
-                   booking.getUnit().setAvailable(false);
-                   cacheService.decrement();
-                }
-
-                eventPublisher.publishEvent(new AppEvent(
-                        "UNIT_BOOKING_AND_PAYMENT_CONFIRMATION",
-                        "Unit " + booking.getUnit().getId() + " booking by User " + booking.getUser().getId()
-                                + " got confirmed and payment got succeed",
-                        LocalDateTime.now()
-                ));
-
-            } else {
-                payment.setStatus(PaymentStatusType.FAILED);
-                booking.setStatus(BookingStatusType.CANCELLED);
-
-                eventPublisher.publishEvent(new AppEvent(
-                        "FAILED_UNIT_BOOKING_AND_PAYMENT",
-                        "Unit " + booking.getUnit().getId() + " booking by User " + booking.getUser().getId()
-                                + " got cancelled because of failed payment",
-                        LocalDateTime.now()
-                ));
-
-            }
+            eventPublisher.publishEvent(new AppEvent(
+                    "FAILED_UNIT_BOOKING_AND_PAYMENT",
+                    "Unit " + booking.getUnit().getId() + " booking by User " + booking.getUser().getId()
+                            + " got cancelled because of failed payment",
+                    LocalDateTime.now()
+            ));
 
             paymentRepository.save(payment);
             bookingRepository.save(booking);

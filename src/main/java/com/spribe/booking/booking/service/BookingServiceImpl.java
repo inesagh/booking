@@ -5,6 +5,7 @@ import com.spribe.booking.booking.domain.Booking;
 import com.spribe.booking.booking.domain.BookingRepository;
 import com.spribe.booking.booking.rest.models.BookingRequestDto;
 import com.spribe.booking.booking.rest.models.BookingResponseDto;
+import com.spribe.booking.cache.CountAvailableUnitCacheService;
 import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.payment.domain.Payment;
 import com.spribe.booking.payment.domain.PaymentRepository;
@@ -23,7 +24,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 
 @Service
-@Transactional
 public class BookingServiceImpl implements BookingService{
     private final AvailabilityService availabilityService;
     private final UnitRepository unitRepository;
@@ -31,24 +31,29 @@ public class BookingServiceImpl implements BookingService{
     private final PaymentRepository paymentRepository;
     private final AppMapper mapper;
     private final ApplicationEventPublisher eventPublisher;
+    private final CountAvailableUnitCacheService cacheService;
 
     @Autowired
     public BookingServiceImpl(AvailabilityService availabilityService, UnitRepository unitRepository,
             BookingRepository bookingRepository, PaymentRepository paymentRepository, AppMapper mapper,
-            ApplicationEventPublisher eventPublisher) {
+            ApplicationEventPublisher eventPublisher, CountAvailableUnitCacheService cacheService) {
         this.availabilityService = availabilityService;
         this.unitRepository = unitRepository;
         this.bookingRepository = bookingRepository;
         this.paymentRepository = paymentRepository;
         this.mapper = mapper;
         this.eventPublisher = eventPublisher;
+        this.cacheService = cacheService;
     }
 
     @Override
+    @Transactional
     public BookingResponseDto book(BookingRequestDto requestDto) {
         Unit unit = unitRepository.findById(requestDto.getUnitId())
                 .orElseThrow(() -> new AppException("Unit doesn't exist", HttpStatus.NOT_FOUND));
         availabilityService.checkAvailabilityDates(unit.getId(), requestDto.getStartDate(), requestDto.getEndDate());
+
+        availabilityService.removeAvailability(unit.getId(), requestDto.getStartDate(), requestDto.getEndDate());
 
         Booking booking = mapper.toEntity(requestDto);
         Booking savedBooking = bookingRepository.save(booking);
@@ -71,6 +76,11 @@ public class BookingServiceImpl implements BookingService{
                 "Unit " + requestDto.getUnitId() + " booking by User " + requestDto.getUserId() + " payment adding in progress",
                 LocalDateTime.now()
         ));
+
+        if (availabilityService.findAllByUnitId(unit.getId()).isEmpty()) {
+            booking.getUnit().setAvailable(false);
+            cacheService.decrement();
+        }
 
         return mapper.toResponseDto(booking);
     }
