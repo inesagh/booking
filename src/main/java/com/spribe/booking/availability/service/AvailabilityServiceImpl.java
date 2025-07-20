@@ -63,7 +63,6 @@ public class AvailabilityServiceImpl implements AvailabilityService{
                         "Unit " + unitId + " availability date range booked for " + bookedFrom + " until " + bookedTo,
                         LocalDateTime.now()
                 ));
-
             } else if (dateRange.getStartDate().isBefore(bookedFrom) && dateRange.getEndDate().isAfter(bookedTo)) {
                 // booked dates are included in the available range, so the booked dates are removed from the available date list
                 Availability left = new Availability(null, dateRange.getUnit(), dateRange.getStartDate(), bookedFrom.minusDays(1));
@@ -77,6 +76,22 @@ public class AvailabilityServiceImpl implements AvailabilityService{
                         LocalDateTime.now()
                 ));
 
+            } else if (dateRange.getStartDate().equals(bookedFrom) && dateRange.getEndDate().isAfter(bookedTo)) {
+                dateRange.setStartDate(bookedTo.plusDays(1));
+                repository.save(dateRange);
+                eventPublisher.publishEvent(new AppEvent(
+                        "UNIT_AVAILABILITY_UPDATE",
+                        "Unit " + unitId + " availability date range modified for " + bookedFrom + " until " + bookedTo,
+                        LocalDateTime.now()
+                ));
+            } else if (dateRange.getStartDate().isBefore(bookedFrom) && dateRange.getEndDate().equals(bookedTo)) {
+                dateRange.setEndDate(bookedFrom.minusDays(1));
+                repository.save(dateRange);
+                eventPublisher.publishEvent(new AppEvent(
+                        "UNIT_AVAILABILITY_UPDATE",
+                        "Unit " + unitId + " availability date range modified for " + bookedFrom + " until " + bookedTo,
+                        LocalDateTime.now()
+                ));
             } else {
                 eventPublisher.publishEvent(new AppEvent(
                         "FAILED_UNIT_AVAILABILITY_UPDATE",

@@ -9,6 +9,7 @@ import com.spribe.booking.payment.domain.PaymentRepository;
 import com.spribe.booking.util.exception.AppException;
 import com.spribe.booking.util.type.BookingStatusType;
 import com.spribe.booking.util.type.PaymentStatusType;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,7 @@ public class PaymentWebhookController {
     }
 
     @PostMapping("/webhook")
+    @Transactional
     public ResponseEntity<String> handleWebhook(
             @RequestParam Long paymentId,
             @RequestParam Long userId,

@@ -70,9 +70,4 @@ public class PaymentScheduler {
             bookingRepository.save(booking);
         }
     }
-
-    private boolean mockPaymentSuccessful(Payment payment) {
-//        now - emulation, update later
-        return Math.random() > 0.5;
-    }
 }
