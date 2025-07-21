@@ -2,7 +2,7 @@ package com.spribe.booking.unit.domain;
 
 import com.spribe.booking.availability.domain.Availability;
 import com.spribe.booking.user.domain.User;
-import com.spribe.booking.util.type.UnitType;
+import com.spribe.booking.infrastructure.util.type.UnitType;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,16 +16,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
 @Entity
 @Table(name = "units")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Unit {

@@ -1,7 +1,7 @@
 package com.spribe.booking.unit.service;
 
 import com.spribe.booking.availability.domain.AvailabilityRepository;
-import com.spribe.booking.cache.CountAvailableUnitCacheService;
+import com.spribe.booking.infrastructure.cache.CountAvailableUnitCacheService;
 import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.unit.domain.Unit;
 import com.spribe.booking.unit.domain.UnitRepository;
@@ -9,9 +9,8 @@ import com.spribe.booking.unit.rest.models.PageDto;
 import com.spribe.booking.unit.rest.models.UnitRequestDto;
 import com.spribe.booking.unit.rest.models.UnitResponseDto;
 import com.spribe.booking.unit.rest.models.UnitSearchCriteria;
-import com.spribe.booking.util.exception.AppException;
-import com.spribe.booking.util.mapper.AppMapper;
-import jakarta.transaction.Transactional;
+import com.spribe.booking.infrastructure.util.exception.AppException;
+import com.spribe.booking.infrastructure.util.mapper.AppMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;

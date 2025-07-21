@@ -1,4 +1,4 @@
-package com.spribe.booking.cache;
+package com.spribe.booking.infrastructure.cache;
 
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;

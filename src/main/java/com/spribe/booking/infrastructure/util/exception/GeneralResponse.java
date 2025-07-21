@@ -1,10 +1,8 @@
-package com.spribe.booking.util.exception;
+package com.spribe.booking.infrastructure.util.exception;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
 public class GeneralResponse {
     private int statusCode;
     private String message;

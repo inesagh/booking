@@ -1,4 +1,4 @@
-package com.spribe.booking.util.mapper;
+package com.spribe.booking.infrastructure.util.mapper;
 
 import com.spribe.booking.availability.domain.Availability;
 import com.spribe.booking.availability.rest.model.AvailabilityRequestDto;
@@ -11,7 +11,11 @@ import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.unit.domain.Unit;
 import com.spribe.booking.unit.rest.models.UnitRequestDto;
 import com.spribe.booking.unit.rest.models.UnitResponseDto;
-import org.mapstruct.*;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import com.spribe.booking.unit.rest.models.UnitRequestDto;
 import com.spribe.booking.unit.rest.models.UnitResponseDto;
 import com.spribe.booking.unit.rest.models.UnitSearchCriteria;
 import com.spribe.booking.unit.service.UnitService;
-import com.spribe.booking.util.type.UnitType;
+import com.spribe.booking.infrastructure.util.type.UnitType;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;

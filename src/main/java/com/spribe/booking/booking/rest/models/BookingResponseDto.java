@@ -1,15 +1,13 @@
 package com.spribe.booking.booking.rest.models;
 
-import com.spribe.booking.util.type.BookingStatusType;
+import com.spribe.booking.infrastructure.util.type.BookingStatusType;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookingResponseDto {

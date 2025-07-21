@@ -1,14 +1,16 @@
-package com.spribe.booking.cache;
+package com.spribe.booking.infrastructure.cache;
 
 import com.spribe.booking.unit.domain.UnitRepository;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile("!test")
 public class CountAvailableUnitCacheService {
     private static final Logger LOG = LoggerFactory.getLogger(CountAvailableUnitCacheService.class);
     private static final String COUNT_AVAILABLE_UNITS_KEY = "unit:available:count";

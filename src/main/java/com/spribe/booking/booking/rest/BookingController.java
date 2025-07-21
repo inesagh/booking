@@ -3,7 +3,7 @@ package com.spribe.booking.booking.rest;
 import com.spribe.booking.booking.rest.models.BookingRequestDto;
 import com.spribe.booking.booking.rest.models.BookingResponseDto;
 import com.spribe.booking.booking.service.BookingService;
-import com.spribe.booking.cache.CountAvailableUnitCacheService;
+import com.spribe.booking.infrastructure.cache.CountAvailableUnitCacheService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,13 +1,11 @@
 package com.spribe.booking.unit.rest.models;
 
-import com.spribe.booking.util.type.UnitType;
-import lombok.Getter;
-import lombok.Setter;
+import com.spribe.booking.infrastructure.util.type.UnitType;
+import lombok.Data;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
 public class UnitSearchCriteria {
     private LocalDate startDate;
     private LocalDate endDate;

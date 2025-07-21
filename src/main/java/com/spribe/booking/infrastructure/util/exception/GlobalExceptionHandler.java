@@ -1,4 +1,4 @@
-package com.spribe.booking.util.exception;
+package com.spribe.booking.infrastructure.util.exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

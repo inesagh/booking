@@ -1,13 +1,11 @@
 package com.spribe.booking.payment.rest.models;
 
-import com.spribe.booking.util.type.PaymentStatusType;
+import com.spribe.booking.infrastructure.util.type.PaymentStatusType;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentResponseDto {

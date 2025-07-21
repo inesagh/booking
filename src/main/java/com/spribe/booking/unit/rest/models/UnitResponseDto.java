@@ -1,19 +1,16 @@
 package com.spribe.booking.unit.rest.models;
 
-import com.spribe.booking.availability.domain.Availability;
 import com.spribe.booking.availability.rest.model.AvailabilityResponseDto;
-import com.spribe.booking.util.type.UnitType;
+import com.spribe.booking.infrastructure.util.type.UnitType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class UnitResponseDto {

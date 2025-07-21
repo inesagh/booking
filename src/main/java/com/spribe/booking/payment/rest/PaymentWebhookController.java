@@ -6,15 +6,18 @@ import com.spribe.booking.booking.domain.BookingRepository;
 import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.payment.domain.Payment;
 import com.spribe.booking.payment.domain.PaymentRepository;
-import com.spribe.booking.util.exception.AppException;
-import com.spribe.booking.util.type.BookingStatusType;
-import com.spribe.booking.util.type.PaymentStatusType;
+import com.spribe.booking.infrastructure.util.exception.AppException;
+import com.spribe.booking.infrastructure.util.type.BookingStatusType;
+import com.spribe.booking.infrastructure.util.type.PaymentStatusType;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 

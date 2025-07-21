@@ -2,9 +2,8 @@ package com.spribe.booking.event.listener;
 
 import com.spribe.booking.event.domain.EventRepository;
 import com.spribe.booking.event.model.AppEvent;
-import com.spribe.booking.util.mapper.AppMapper;
+import com.spribe.booking.infrastructure.util.mapper.AppMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;

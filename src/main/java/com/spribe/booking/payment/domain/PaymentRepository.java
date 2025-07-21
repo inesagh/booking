@@ -1,7 +1,6 @@
 package com.spribe.booking.payment.domain;
 
-import com.spribe.booking.util.type.PaymentStatusType;
-import jakarta.transaction.Transactional;
+import com.spribe.booking.infrastructure.util.type.PaymentStatusType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -2,10 +2,10 @@ package com.spribe.booking.availability.service;
 
 import com.spribe.booking.availability.domain.Availability;
 import com.spribe.booking.availability.domain.AvailabilityRepository;
-import com.spribe.booking.cache.CountAvailableUnitCacheService;
+import com.spribe.booking.infrastructure.cache.CountAvailableUnitCacheService;
 import com.spribe.booking.event.model.AppEvent;
 import com.spribe.booking.unit.domain.Unit;
-import com.spribe.booking.util.exception.AvailabilityException;
+import com.spribe.booking.infrastructure.util.exception.AvailabilityException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -50,6 +50,7 @@ public class AvailabilityServiceImpl implements AvailabilityService{
     }
 
     @Override
+    @Transactional
     public void removeAvailability(Long unitId, LocalDate bookedFrom, LocalDate bookedTo) {
         List<Availability> availableDates = repository.findByUnitIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(
                 unitId, bookedFrom, bookedTo);
@@ -105,6 +106,7 @@ public class AvailabilityServiceImpl implements AvailabilityService{
     }
 
     @Override
+    @Transactional
     public void addRangeAndMerge(Unit unit, LocalDate from, LocalDate to) {
         List<Availability> ranges = repository.findAllByUnitIdOrderByStartDate(unit.getId());
         ranges.add(new Availability(null, unit, from, to));

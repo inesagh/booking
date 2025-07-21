@@ -1,4 +1,4 @@
-package com.spribe.booking.util.exception;
+package com.spribe.booking.infrastructure.util.exception;
 
 import lombok.Getter;
 import org.slf4j.Logger;

@@ -1,18 +1,19 @@
-package com.spribe.booking.util.data_initializer;
+package com.spribe.booking.infrastructure.util.data_initializer;
 
 import com.spribe.booking.availability.domain.Availability;
-import com.spribe.booking.cache.CountAvailableUnitCacheService;
+import com.spribe.booking.infrastructure.cache.CountAvailableUnitCacheService;
 import com.spribe.booking.event.domain.Event;
 import com.spribe.booking.event.domain.EventRepository;
+import com.spribe.booking.infrastructure.util.exception.AppException;
+import com.spribe.booking.infrastructure.util.type.UnitType;
 import com.spribe.booking.unit.domain.Unit;
 import com.spribe.booking.unit.domain.UnitRepository;
 import com.spribe.booking.user.domain.User;
 import com.spribe.booking.user.domain.UserRepository;
-import com.spribe.booking.util.exception.AppException;
-import com.spribe.booking.util.type.UnitType;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,7 @@ import java.util.List;
 import java.util.Random;
 
 @Component
+@Profile("!test")
 public class DataInitializer {
     private final UnitRepository unitRepository;
     private final EventRepository eventRepository;

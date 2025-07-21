@@ -1,4 +1,4 @@
-package com.spribe.booking.util.type;
+package com.spribe.booking.infrastructure.util.type;
 
 public enum PaymentStatusType {
     PENDING,
